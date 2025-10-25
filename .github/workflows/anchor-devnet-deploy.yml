@@ -68,7 +68,6 @@ jobs:
           mkdir -p /tmp
           docker run --rm \
             -v ${{ steps.locate.outputs.anchor_dir }}:/work \
-            -v $HOME/.config/solana:/root/.config/solana \
             -w /work \
             solanafoundation/anchor:v0.32.1 anchor build -vv 2>&1 | tee /tmp/anchor_build.log
 
@@ -86,7 +85,6 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ steps.locate.outputs.anchor_dir }}:/work \
-            -v $HOME/.config/solana:/root/.config/solana \
             -w /work \
             solanafoundation/anchor:v0.32.1 anchor keys list
 
