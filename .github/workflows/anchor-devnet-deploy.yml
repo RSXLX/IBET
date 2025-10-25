@@ -17,6 +17,22 @@ jobs:
           echo '${{ secrets.SOLANA_WALLET }}' > ~/.config/solana/id.json
           chmod 600 ~/.config/solana/id.json
 
+      - name: Locate Anchor project
+        id: locate
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${{ github.workspace }}"
+          FOUND=$(find "$ROOT" -maxdepth 4 -type f -name Anchor.toml | head -n1 || true)
+          if [ -z "$FOUND" ]; then
+            echo "Anchor project not found. Place an Anchor.toml within the repo."
+            echo "ANCHOR_DIR=" >> $GITHUB_ENV
+            exit 1
+          fi
+          ANCHOR_DIR=$(dirname "$FOUND")
+          echo "Anchor dir: $ANCHOR_DIR"
+          echo "ANCHOR_DIR=$ANCHOR_DIR" >> $GITHUB_ENV
+
       - name: Pull Anchor Docker image
         run: docker pull solanafoundation/anchor:v0.32.1
 
@@ -26,7 +42,7 @@ jobs:
       - name: Keys sync to update Program IDs
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v ${{ env.ANCHOR_DIR }}:/work \
             -v $HOME/.config/solana:/root/.config/solana \
             -w /work \
             solanafoundation/anchor:v0.32.1 anchor keys sync
@@ -34,7 +50,7 @@ jobs:
       - name: Build (verifiable in Docker)
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v ${{ env.ANCHOR_DIR }}:/work \
             -v $HOME/.config/solana:/root/.config/solana \
             -w /work \
             solanafoundation/anchor:v0.32.1 anchor build -vv
@@ -42,7 +58,7 @@ jobs:
       - name: Deploy to devnet
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v ${{ env.ANCHOR_DIR }}:/work \
             -v $HOME/.config/solana:/root/.config/solana \
             -w /work \
             solanafoundation/anchor:v0.32.1 anchor deploy -vv
@@ -50,7 +66,7 @@ jobs:
       - name: Program keys list
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v ${{ env.ANCHOR_DIR }}:/work \
             -v $HOME/.config/solana:/root/.config/solana \
             -w /work \
             solanafoundation/anchor:v0.32.1 anchor keys list
