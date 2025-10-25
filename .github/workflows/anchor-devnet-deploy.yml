@@ -1,0 +1,56 @@
+name: Anchor Devnet Build & Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare Solana wallet
+        shell: bash
+        run: |
+          mkdir -p ~/.config/solana
+          echo '${{ secrets.SOLANA_WALLET }}' > ~/.config/solana/id.json
+          chmod 600 ~/.config/solana/id.json
+
+      - name: Pull Anchor Docker image
+        run: docker pull solanafoundation/anchor:v0.32.1
+
+      - name: Show Anchor CLI version (in container)
+        run: docker run --rm solanafoundation/anchor:v0.32.1 anchor --version
+
+      - name: Keys sync to update Program IDs
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v $HOME/.config/solana:/root/.config/solana \
+            -w /work \
+            solanafoundation/anchor:v0.32.1 anchor keys sync
+
+      - name: Build (verifiable in Docker)
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v $HOME/.config/solana:/root/.config/solana \
+            -w /work \
+            solanafoundation/anchor:v0.32.1 anchor build -vv
+
+      - name: Deploy to devnet
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v $HOME/.config/solana:/root/.config/solana \
+            -w /work \
+            solanafoundation/anchor:v0.32.1 anchor deploy -vv
+
+      - name: Program keys list
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/sports-betting-platform/server/levr-bet:/work \
+            -v $HOME/.config/solana:/root/.config/solana \
+            -w /work \
+            solanafoundation/anchor:v0.32.1 anchor keys list
