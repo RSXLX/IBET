@@ -1,6 +1,11 @@
 name: Anchor Devnet Build & Deploy
 
 on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "anchor/**"
+      - ".github/workflows/anchor-devnet-deploy.yml"
   workflow_dispatch:
 
 jobs:
@@ -61,7 +66,7 @@ jobs:
             solanafoundation/anchor:v0.32.1 anchor build -vv
 
       - name: Deploy to devnet
-        if: env.ANCHOR_DIR != ''
+        if: env.ANCHOR_DIR != '' && secrets.SOLANA_WALLET != ''
         run: |
           docker run --rm \
             -v ${{ env.ANCHOR_DIR }}:/work \
