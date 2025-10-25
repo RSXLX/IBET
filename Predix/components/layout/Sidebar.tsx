@@ -43,10 +43,7 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
   // Define navigation items
   const mainNav = [
     { id: 'home', label: t('nav.home'), href: '/', icon: 'Home' },
-    { id: 'sports', label: t('topics.sports'), href: '/sports-betting', icon: 'Trophy' },
-    { id: 'markets', label: t('nav.markets'), href: '/markets', icon: 'BarChart3' },
-    { id: 'leaderboard', label: t('nav.leaderboard'), href: '/leaderboard', icon: 'Trophy' },
-    { id: 'news', label: t('nav.news'), href: '/news', icon: 'Newspaper' }
+    { id: 'leaderboard', label: t('nav.leaderboard'), href: '/leaderboard', icon: 'Trophy' }
   ];
 
 
@@ -68,9 +65,9 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
         {!isCollapsed && (
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center tech-glow">
-              <span className="text-primary-foreground font-bold text-sm">P</span>
+              <span className="text-primary-foreground font-bold text-sm">K</span>
             </div>
-            <span className="font-bold text-xl text-foreground">Predix</span>
+            <span className="font-bold text-xl text-foreground">K Market</span>
           </div>
         )}
         <Button
@@ -84,55 +81,31 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
       </div>
 
       {/* Navigation */}
-      <nav className="p-4 space-y-6">
-        {/* Main Navigation */}
-        <div className="space-y-2">
-          {mainNav.map((item) => {
-            const Icon = icons[item.icon as keyof typeof icons];
-            const isActive = pathname === item.href;
-            
-            return (
-              <Link
-                key={item.id}
-                href={item.href || '#'}
-                className={cn(
-                  'flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200',
-                  isActive
-                    ? 'bg-primary text-primary-foreground tech-glow'
-                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                )}
-              >
-                <Icon className="w-5 h-5" />
-                {!isCollapsed && (
-                  <span className="font-medium">{item.label}</span>
-                )}
-              </Link>
-            );
-          })}
-        </div>
-
-
-
+      <nav className="px-2 space-y-2">
+        {mainNav.map((item) => (
+          <Link
+            key={item.id}
+            href={item.href}
+            className={cn(
+              'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm transition-colors',
+              pathname === item.href ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'
+            )}
+          >
+            {/* icon placeholder removed for brevity */}
+            <span>{item.label}</span>
+          </Link>
+        ))}
       </nav>
 
       {/* Footer */}
       <div className="absolute bottom-0 left-0 right-0 p-4">
-        {!isCollapsed && (
-          <div className="space-y-2">
-            {footer.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className="block text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {t(item.id)}
-              </Link>
-            ))}
-            <p className="text-xs text-muted-foreground mt-4">
-              {t('copyright')}
-            </p>
-          </div>
-        )}
+        <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+          {footer.map((f) => (
+            <Link key={f.id} href={f.href} className="hover:text-foreground transition-colors">
+              {t(f.id)}
+            </Link>
+          ))}
+        </div>
       </div>
     </aside>
   );

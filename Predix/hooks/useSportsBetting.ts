@@ -78,8 +78,8 @@ export function useSportsBetting(initialId?: string) {
   };
 
   const generateRandomOdds = () => {
-    const homeOdds = parseFloat((Math.random() * 2 + 1.2).toFixed(2));
-    const awayOdds = parseFloat((Math.random() * 2 + 1.2).toFixed(2));
+    const homeOdds = parseFloat((Math.random() * 0.6 + 1.7).toFixed(2));
+    const awayOdds = parseFloat((Math.random() * 0.6 + 1.7).toFixed(2));
     const liquidationBase = parseFloat((Math.random() * 0.6 + 2.2).toFixed(2));
 
     setMatchData(prev => ({
@@ -257,8 +257,9 @@ export function useSportsBetting(initialId?: string) {
       const last = prev.length ? prev[prev.length - 1] : { t: 0, ts: liveStartAtRef.current, home: matchData.odds.home || 1.8, away: matchData.odds.away || 2.0 };
       const t = last.t + 1;
       const ts = liveStartAtRef.current + t * TICK_MS;
-      const baseVol = 0.04;
-      const swing = (Math.random() - 0.5) * baseVol;
+      const baseVol = 0.08;
+      const eventShock = Math.random() < 0.06 ? (Math.random() - 0.5) * 0.25 : 0;
+      const swing = (Math.random() - 0.5) * baseVol + eventShock;
       const homeRaw = parseFloat((last.home + swing).toFixed(2));
       const awayRaw = parseFloat((last.away - swing).toFixed(2));
       const clamp = (v: number) => Math.max(1.1, Math.min(3.5, v));

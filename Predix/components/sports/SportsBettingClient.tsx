@@ -87,40 +87,44 @@ export function SportsBettingClient({ fixtureId, isLiveSignal }: SportsBettingCl
         </Card>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {isLive ? (
-            <LiveOddsChart
-              homeCode={matchData.teams.home.code}
-              awayCode={matchData.teams.away.code}
-              data={liveChartData}
-              liquidation={matchData.odds.liquidation}
-              selectedTeam={matchData.wager.selectedTeam}
-            />
-          ) : (
-            <OddsChart
-              homeCode={matchData.teams.home.code}
-              awayCode={matchData.teams.away.code}
-              odds={matchData.odds}
-              selectedTeam={matchData.wager.selectedTeam}
-            />
-          )}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            {isLive ? (
+              <LiveOddsChart
+                homeCode={matchData.teams.home.code}
+                awayCode={matchData.teams.away.code}
+                data={liveChartData}
+                liquidation={matchData.odds.liquidation}
+                selectedTeam={matchData.wager.selectedTeam}
+              />
+            ) : (
+              <OddsChart
+                homeCode={matchData.teams.home.code}
+                awayCode={matchData.teams.away.code}
+                odds={matchData.odds}
+                selectedTeam={matchData.wager.selectedTeam}
+              />
+            )}
+          </div>
 
-          <BetPanel
-            home={{ code: matchData.teams.home.code, name: matchData.teams.home.name, odds: matchData.odds.home }}
-            away={{ code: matchData.teams.away.code, name: matchData.teams.away.name, odds: matchData.odds.away }}
-            selectedTeam={matchData.wager.selectedTeam}
-            amount={matchData.wager.amount}
-            multiplier={matchData.wager.multiplier}
-            payout={matchData.wager.payout}
-            liquidation={matchData.odds.liquidation}
-            onSelectTeam={selectTeam}
-            onAmountChange={updateWagerAmount}
-            onMultiplierChange={updateMultiplier}
-            onPlaceBet={() => {
-              const result = placeBet();
-              alert(JSON.stringify(result, null, 2));
-            }}
-          />
+          <div className="lg:col-span-1">
+            <BetPanel
+              home={{ code: matchData.teams.home.code, name: matchData.teams.home.name, odds: matchData.odds.home }}
+              away={{ code: matchData.teams.away.code, name: matchData.teams.away.name, odds: matchData.odds.away }}
+              selectedTeam={matchData.wager.selectedTeam}
+              amount={matchData.wager.amount}
+              multiplier={matchData.wager.multiplier}
+              payout={matchData.wager.payout}
+              liquidation={matchData.odds.liquidation}
+              onSelectTeam={selectTeam}
+              onAmountChange={updateWagerAmount}
+              onMultiplierChange={updateMultiplier}
+              onPlaceBet={() => {
+                const result = placeBet();
+                alert(JSON.stringify(result, null, 2));
+              }}
+            />
+          </div>
         </div>
 
         {/* Match list */}

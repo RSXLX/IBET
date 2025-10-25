@@ -2,3 +2,6 @@
 members = [
     "programs/levr_bet",
 ]
+
+[profile.release]
+overflow-checks = true

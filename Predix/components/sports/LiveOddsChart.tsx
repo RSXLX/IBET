@@ -29,13 +29,25 @@ export function LiveOddsChart({ homeCode, awayCode, data, liquidation, selectedT
   const formatTs = (ts?: number) => {
     if (!ts) return '';
     const d = new Date(ts);
-    return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}:${d.getSeconds().toString().padStart(2, '0')}`;
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    const ss = String(d.getSeconds()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
   };
 
-  const tickFormatter = (val: number) => {
-    const d = new Date(val);
-    return `${d.getMinutes().toString().padStart(2, '0')}:${d.getSeconds().toString().padStart(2, '0')}`;
-  };
+  const tickFormatter = (val: number) => formatTs(val);
+
+  const [yDomainMin, yDomainMax] = useMemo(() => {
+    if (!data.length) return [1, 4];
+    const min = Math.min(...data.map(p => Math.min(p.home, p.away)));
+    const max = Math.max(...data.map(p => Math.max(p.home, p.away)));
+    const paddedMin = Math.max(1, Number((min - 0.1).toFixed(2)));
+    const paddedMax = Math.min(4, Number((max + 0.1).toFixed(2)));
+    return [paddedMin, paddedMax];
+  }, [data]);
 
   return (
     <Card className="tech-card w-full min-w-0">
@@ -44,13 +56,12 @@ export function LiveOddsChart({ homeCode, awayCode, data, liquidation, selectedT
         <div className="text-xs text-muted-foreground text-center">{formatTs(startTs)} — {formatTs(endTs)}</div>
       </CardHeader>
       <CardContent>
-        <div className="h-64 min-w-0">
+        <div className="h-[420px] min-w-0">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-              {/* 修改：使用 number 轴并锁定完整数据域，优化时间轴可读性 */}
-              <XAxis dataKey="ts" type="number" domain={["dataMin", "dataMax"]} axisLine={false} tickLine={false} tickFormatter={tickFormatter} minTickGap={24} />
-              <YAxis domain={[1, 4]} axisLine={false} tickLine={false} />
+              <XAxis dataKey="ts" type="number" domain={["dataMin", "dataMax"]} axisLine={false} tickLine={false} tickFormatter={tickFormatter} minTickGap={48} />
+              <YAxis domain={[yDomainMin, yDomainMax]} axisLine={false} tickLine={false} tickMargin={8} />
               <Tooltip labelFormatter={(val: any) => formatTs(typeof val === 'number' ? val : Number(val))} formatter={(val: any) => (typeof val === 'number' ? val.toFixed(2) : val)} />
               <ReferenceLine y={liquidation} stroke="#9CA3AF" strokeDasharray="4 4" ifOverflow="extendDomain" label={{ position: 'right', value: 'Liquidation', fill: '#9CA3AF', fontSize: 10 }} />
               <Line type="monotone" dataKey="home" name={homeCode} stroke={homeStroke} strokeWidth={homeWidth} strokeOpacity={homeOpacity} dot={false} isAnimationActive={true} animationDuration={300} />

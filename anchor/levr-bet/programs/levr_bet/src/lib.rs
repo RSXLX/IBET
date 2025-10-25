@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 use anchor_lang::system_program;
 
 // 占位 Program ID；GitHub Actions 将通过 `anchor keys sync` 自动更新
-declare_id!("Dhg6Crgi2tcriScveyjehH5GrS4X7LQ4rGmTp91JjAUE");
+declare_id!("Fsrb3f4B6kGa9zJXvvBqwRNhGSrQMNeLMcfge8WiGHVu");
 
 pub const SCALE_BPS: u64 = 10_000; // 统一缩放比例
 

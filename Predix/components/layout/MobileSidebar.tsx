@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sidebar } from './Sidebar';
 import { WalletButton } from '@/components/wallet/WalletButton';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Sidebar } from './Sidebar';
 
 export function MobileSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,9 +28,9 @@ export function MobileSidebar() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
+              <span className="text-white font-bold text-sm">K</span>
             </div>
-            <span className="font-bold text-xl text-foreground">Predix</span>
+            <span className="font-bold text-xl text-foreground">K Market</span>
           </div>
 
           {/* Wallet Button */}
@@ -53,30 +54,16 @@ export function MobileSidebar() {
               initial={{ x: -300 }}
               animate={{ x: 0 }}
               exit={{ x: -300 }}
-              className="w-80 h-full bg-background shadow-xl"
+              className="w-64 h-full bg-background"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
-              <div className="flex items-center justify-between p-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">P</span>
-                  </div>
-                  <span className="font-bold text-xl text-foreground">Predix</span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <X className="w-6 h-6" />
+              <div className="flex items-center p-4">
+                <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+                  <ChevronLeft className="w-5 h-5" />
                 </Button>
+                <span className="ml-2 text-sm text-muted-foreground">Close</span>
               </div>
-
-              {/* Sidebar Content */}
-              <div className="h-full overflow-y-auto">
-                <Sidebar onClose={() => setIsOpen(false)} />
-              </div>
+              <Sidebar onClose={() => setIsOpen(false)} />
             </motion.div>
           </motion.div>
         )}

@@ -8,6 +8,7 @@ export type MockFixture = {
   kickoffTime: string; // e.g. "2025-10-26T19:30:00Z" or human-readable
   status?: 'pre' | 'live' | 'final';
   preOdds?: { home: number; away: number; draw?: number };
+  liveOdds?: { home: number; away: number; draw?: number };
 };
 
 export const mockFixtures: MockFixture[] = [
@@ -76,6 +77,40 @@ export const mockFixtures: MockFixture[] = [
     kickoffTime: 'Sat 16:00',
     status: 'pre',
     preOdds: { home: 1.75, away: 2.20 }
+  },
+  // Live fixtures (isLive=true)
+  {
+    id: 'nba-phi-mia-live-101',
+    title: 'NBA • Philadelphia 76ers vs Miami Heat',
+    sport: 'NBA',
+    league: 'NBA',
+    homeTeam: 'Philadelphia 76ers',
+    awayTeam: 'Miami Heat',
+    kickoffTime: 'Q3 05:12',
+    status: 'live',
+    liveOdds: { home: 2.10, away: 1.80 }
+  },
+  {
+    id: 'epl-liv-mun-live-102',
+    title: 'Premier League • Liverpool vs Manchester United',
+    sport: 'Premier League',
+    league: 'EPL',
+    homeTeam: 'Liverpool',
+    awayTeam: 'Manchester United',
+    kickoffTime: "78'",
+    status: 'live',
+    liveOdds: { home: 2.45, draw: 3.05, away: 2.35 }
+  },
+  {
+    id: 'nfl-dal-sf-live-103',
+    title: 'NFL • Dallas Cowboys vs San Francisco 49ers',
+    sport: 'NFL',
+    league: 'NFL',
+    homeTeam: 'Dallas Cowboys',
+    awayTeam: 'San Francisco 49ers',
+    kickoffTime: 'Q4 03:28',
+    status: 'live',
+    liveOdds: { home: 2.85, away: 1.55 }
   }
 ];
 

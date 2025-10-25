@@ -1,4 +1,4 @@
-# Predix Markets
+# K Market
 
 A decentralized prediction market platform built with Next.js, Web3, and AI-powered content aggregation.
 
@@ -75,4 +75,4 @@ A decentralized prediction market platform built with Next.js, Web3, and AI-powe
 
 ---
 
-**Built with ❤️ by the Predix team**
+**Built with ❤️ by the K Market team**

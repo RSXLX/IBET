@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="240" height="240" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- subtle neon glow backdrop -->
+  <g stroke="#FF6A13" stroke-opacity="0.25" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="50" y1="30" x2="50" y2="170" />
+    <polyline points="50,85 95,30" />
+    <polyline points="50,115 95,170" />
+  </g>
+  <!-- primary K mark -->
+  <g stroke="#FF6A13" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="50" y1="30" x2="50" y2="170" />
+    <polyline points="50,85 95,30" />
+    <polyline points="50,115 95,170" />
+    <!-- inner accent lines for premium feel -->
+    <line x1="70" y1="50" x2="50" y2="85" />
+    <line x1="70" y1="150" x2="50" y2="115" />
+  </g>
+</svg>

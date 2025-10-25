@@ -8,7 +8,7 @@ import './globals.css'
 import '@solana/wallet-adapter-react-ui/styles.css'
 
 export const metadata: Metadata = {
-  title: 'Predix Markets',
+  title: 'K Market',
   description: 'Decentralized prediction markets platform',
 }
 

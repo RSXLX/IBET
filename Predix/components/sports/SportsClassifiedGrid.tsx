@@ -27,6 +27,7 @@ export function SportsClassifiedGrid() {
   const [activeSport, setActiveSport] = useState<string>('All');
   const [activeLeagues, setActiveLeagues] = useState<Set<string>>(new Set());
   const [query, setQuery] = useState<string>('');
+  const [activeStatus, setActiveStatus] = useState<'pre' | 'live'>('pre');
 
   const toggleLeague = (lg: string) => {
     const next = new Set(activeLeagues);
@@ -34,25 +35,27 @@ export function SportsClassifiedGrid() {
     setActiveLeagues(next);
   };
 
+  const filtered = useMemo(() => {
+    return enriched.filter(({ f, c }) => {
+      const statusOk = f.status ? (f.status === activeStatus) : (activeStatus === 'pre');
+      const sportOk = activeSport === 'All' ? true : c.sport === activeSport;
+      const leagueOk = activeLeagues.size === 0 ? true : (c.league ? activeLeagues.has(c.league) : false);
+      const text = `${f.title} ${f.homeTeam} ${f.awayTeam}`.toLowerCase();
+      const qOk = query ? text.includes(query.toLowerCase()) : true;
+      return statusOk && sportOk && leagueOk && qOk;
+    });
+  }, [enriched, activeStatus, activeSport, activeLeagues, query]);
+
   const matches: LiveMatch[] = useMemo(() => {
-    const list = enriched
-      .filter(({ f, c }) => {
-        const sportOk = activeSport === 'All' ? true : c.sport === activeSport;
-        const leagueOk = activeLeagues.size === 0 ? true : (c.league ? activeLeagues.has(c.league) : false);
-        const text = `${f.title} ${f.homeTeam} ${f.awayTeam}`.toLowerCase();
-        const qOk = query ? text.includes(query.toLowerCase()) : true;
-        return sportOk && leagueOk && qOk;
-      })
-      .map(({ f, c }) => ({
-        id: f.id,
-        sport: c.sport,
-        teams: { home: { name: f.homeTeam }, away: { name: f.awayTeam } },
-        status: { time: f.kickoffTime, isLive: false },
-        liveOdds: f.preOdds ? { home: f.preOdds.home, draw: f.preOdds.draw, away: f.preOdds.away } : undefined,
-        marketUrl: `/sports-betting?fixtureId=${encodeURIComponent(f.id)}&autoOpen=1`
-      }));
-    return list;
-  }, [enriched, activeSport, activeLeagues, query]);
+    return filtered.map(({ f, c }) => ({
+      id: f.id,
+      sport: c.sport,
+      teams: { home: { name: f.homeTeam }, away: { name: f.awayTeam } },
+      status: { time: f.kickoffTime, isLive: f.status === 'live' },
+      liveOdds: (f.status === 'live' ? f.liveOdds : f.preOdds) || undefined,
+      marketUrl: `/sports-betting?fixtureId=${encodeURIComponent(f.id)}&autoOpen=1`
+    }));
+  }, [filtered]);
 
   return (
     <div className="space-y-6">
@@ -62,6 +65,18 @@ export function SportsClassifiedGrid() {
           <CardTitle className="text-lg">Browse Sports Fixtures</CardTitle>
         </CardHeader>
         <CardContent>
+          {/* 状态切换：Pre / In-Play */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            <button
+              className={`px-3 py-1 rounded-md text-sm border ${activeStatus === 'pre' ? 'bg-primary text-primary-foreground' : 'bg-muted'} hover:bg-accent`}
+              onClick={() => setActiveStatus('pre')}
+            >Pre-Game</button>
+            <button
+              className={`px-3 py-1 rounded-md text-sm border ${activeStatus === 'live' ? 'bg-primary text-primary-foreground' : 'bg-muted'} hover:bg-accent`}
+              onClick={() => setActiveStatus('live')}
+            >In-Play</button>
+          </div>
+
           {/* 一级：运动类型 Tabs */}
           <div className="flex flex-wrap gap-2 mb-4">
             <button
@@ -102,22 +117,12 @@ export function SportsClassifiedGrid() {
 
           <Separator className="my-4" />
 
-          <p className="text-xs text-muted-foreground">Tip: Click a fixture card to open the betting drawer. Use tabs and chips to quickly filter by sport and league.</p>
+          <p className="text-xs text-muted-foreground">Tip: Use status toggle to switch Pre/In-Play. Click a card to open the betting drawer.</p>
         </CardContent>
       </Card>
 
-      {/* 列表区 */}
+      {/* 列表区：仅显示当前状态对应的数据 */}
       <LiveInPlayGrid matches={matches} />
-
-      {/* 新增：从 API 获取的实时比赛区块，便于预览直播信号 */}
-      <Card className="tech-card">
-        <CardHeader>
-          <CardTitle className="text-lg">In-Play Now</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <LiveInPlayGrid />
-        </CardContent>
-      </Card>
     </div>
   );
 }

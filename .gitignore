@@ -1,0 +1,23 @@
+# Anchor build artifacts
+anchor/**/target/
+anchor/**/test-ledger/
+
+# Next.js/Node artifacts (fallback at repo root)
+Predix/node_modules/
+Predix/.next/
+Predix/out/
+Predix/coverage/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Env files
+*.env
+.env*.local
