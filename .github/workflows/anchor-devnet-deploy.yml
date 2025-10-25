@@ -19,6 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Prepare Solana wallet
+        if: ${{ secrets.SOLANA_WALLET != '' }}
         shell: bash
         run: |
           mkdir -p ~/.config/solana
@@ -48,7 +49,7 @@ jobs:
         run: docker run --rm solanafoundation/anchor:v0.32.1 anchor --version
 
       - name: Keys sync to update Program IDs
-        if: env.ANCHOR_DIR != ''
+        if: ${{ env.ANCHOR_DIR != '' && secrets.SOLANA_WALLET != '' }}
         run: |
           docker run --rm \
             -v ${{ env.ANCHOR_DIR }}:/work \
@@ -57,7 +58,7 @@ jobs:
             solanafoundation/anchor:v0.32.1 anchor keys sync
 
       - name: Build (verifiable in Docker)
-        if: env.ANCHOR_DIR != ''
+        if: ${{ env.ANCHOR_DIR != '' }}
         run: |
           docker run --rm \
             -v ${{ env.ANCHOR_DIR }}:/work \
@@ -66,7 +67,7 @@ jobs:
             solanafoundation/anchor:v0.32.1 anchor build -vv
 
       - name: Deploy to devnet
-        if: env.ANCHOR_DIR != '' && secrets.SOLANA_WALLET != ''
+        if: ${{ env.ANCHOR_DIR != '' && secrets.SOLANA_WALLET != '' }}
         run: |
           docker run --rm \
             -v ${{ env.ANCHOR_DIR }}:/work \
@@ -75,7 +76,7 @@ jobs:
             solanafoundation/anchor:v0.32.1 anchor deploy -vv
 
       - name: Program keys list
-        if: env.ANCHOR_DIR != ''
+        if: ${{ env.ANCHOR_DIR != '' }}
         run: |
           docker run --rm \
             -v ${{ env.ANCHOR_DIR }}:/work \
@@ -84,6 +85,6 @@ jobs:
             solanafoundation/anchor:v0.32.1 anchor keys list
 
       - name: Note
-        if: env.ANCHOR_DIR == ''
+        if: ${{ env.ANCHOR_DIR == '' }}
         run: |
           echo "Workflow finished without Anchor project. Add your Anchor program repo and re-run."
