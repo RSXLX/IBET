@@ -92,6 +92,24 @@ jobs:
         if: ${{ steps.locate.outputs.anchor_dir == '' }}
         run: |
           echo "Workflow finished without Anchor project. Add your Anchor program repo and re-run."
+      - name: Debug workspace manifests and layout
+        if: ${{ steps.locate.outputs.anchor_dir != '' }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp
+          echo "ANCHOR_DIR=${{ steps.locate.outputs.anchor_dir }}" | tee /tmp/workspace_debug.log
+          ls -la "${{ steps.locate.outputs.anchor_dir }}" | tee -a /tmp/workspace_debug.log
+          [ -f "${{ steps.locate.outputs.anchor_dir }}/Anchor.toml" ] && cat "${{ steps.locate.outputs.anchor_dir }}/Anchor.toml" | tee -a /tmp/workspace_debug.log || true
+          [ -f "${{ steps.locate.outputs.anchor_dir }}/Cargo.toml" ] && cat "${{ steps.locate.outputs.anchor_dir }}/Cargo.toml" | tee -a /tmp/workspace_debug.log || true
+          ls -la "${{ steps.locate.outputs.anchor_dir }}/programs" | tee -a /tmp/workspace_debug.log || true
+          ls -la "${{ steps.locate.outputs.anchor_dir }}/programs/levr_bet" | tee -a /tmp/workspace_debug.log || true
+          [ -f "${{ steps.locate.outputs.anchor_dir }}/programs/levr_bet/Cargo.toml" ] && cat "${{ steps.locate.outputs.anchor_dir }}/programs/levr_bet/Cargo.toml" | tee -a /tmp/workspace_debug.log || true
+      - name: Upload workspace debug
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace-debug
+          path: /tmp/workspace_debug.log
       - name: Upload build logs
         if: always()
         uses: actions/upload-artifact@v4
