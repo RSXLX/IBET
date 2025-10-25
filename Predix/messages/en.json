@@ -1,0 +1,110 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "navigation": {
+    "home": "Home",
+    "markets": "Markets",
+    "leaderboard": "Leaderboard",
+    "earn": "Earn",
+    "news": "News",
+    "integrations": "Integrations",
+    "help": "Help & Feedback",
+    "partner": "Partner with us",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2025 All rights reserved",
+    "topicsLabel": "TOPICS",
+    "auth": {
+      "signIn": "Sign In"
+    }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "connectWallet": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "balance": "Balance",
+    "address": "Address"
+  },
+  "search": {
+    "placeholder": "Search prediction markets...",
+    "noResults": "No results found",
+    "recentSearches": "Recent Searches"
+  },
+  "market": {
+    "predict": "Predict",
+    "volume": "Volume",
+    "ends": "Ends",
+    "ended": "Ended",
+    "resolved": "Resolved",
+    "trending": "🔥 Trending Predictions",
+    "categories": "📊 Category Markets",
+    "probability": "Probability",
+    "totalStaked": "Total Staked",
+    "participants": "Participants",
+    "timeLeft": "Time Left",
+    "creator": "Creator",
+    "description": "Description",
+    "rules": "Rules",
+    "source": "Source"
+  },
+  "bet": {
+    "placeBet": "Place Bet",
+    "amount": "Amount",
+    "outcome": "Outcome",
+    "expectedReturn": "Expected Return",
+    "currentOdds": "Current Odds",
+    "minBet": "Minimum Bet",
+    "maxBet": "Maximum Bet",
+    "insufficientBalance": "Insufficient Balance",
+    "betPlaced": "Bet Placed Successfully",
+    "betFailed": "Failed to Place Bet"
+  },
+  "topics": {
+    "crypto": "Crypto",
+    "sports": "Sports",
+    "politics": "Politics",
+    "economy": "Economy",
+    "gaming": "Gaming",
+    "culture": "Culture",
+    "tech": "Tech & Science"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "rank": "Rank",
+    "user": "User",
+    "points": "Points",
+    "accuracy": "Accuracy",
+    "totalBets": "Total Bets"
+  },
+  "earn": {
+    "title": "Earn Rewards",
+    "dailyRewards": "Daily Rewards",
+    "referralBonus": "Referral Bonus",
+    "tournamentPrizes": "Tournament Prizes",
+    "stakingRewards": "Staking Rewards"
+  },
+  "news": {
+    "title": "Latest News",
+    "description": "Stay updated with the latest news from major sources",
+    "readMore": "Read More",
+    "source": "Source"
+  }
+}

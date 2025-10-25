@@ -1,0 +1,110 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "close": "关闭",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "view": "查看",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "all": "全部",
+    "none": "无",
+    "yes": "是",
+    "no": "否"
+  },
+  "navigation": {
+    "home": "首页",
+    "markets": "市场",
+    "leaderboard": "排行榜",
+    "earn": "赚取",
+    "news": "新闻",
+    "integrations": "集成",
+    "help": "帮助与反馈",
+    "partner": "合作伙伴",
+    "terms": "使用条款",
+    "privacy": "隐私政策",
+    "copyright": "© 2025 版权所有",
+    "topicsLabel": "主题",
+    "auth": {
+      "signIn": "登录"
+    }
+  },
+  "auth": {
+    "signIn": "登录",
+    "signOut": "退出",
+    "connectWallet": "连接钱包",
+    "disconnect": "断开连接",
+    "balance": "余额",
+    "address": "地址"
+  },
+  "search": {
+    "placeholder": "搜索预测市场...",
+    "noResults": "未找到结果",
+    "recentSearches": "最近搜索"
+  },
+  "market": {
+    "predict": "预测",
+    "volume": "交易量",
+    "ends": "结束时间",
+    "ended": "已结束",
+    "resolved": "已解决",
+    "trending": "🔥 热门预测",
+    "categories": "📊 分类市场",
+    "probability": "概率",
+    "totalStaked": "总投注",
+    "participants": "参与者",
+    "timeLeft": "剩余时间",
+    "creator": "创建者",
+    "description": "描述",
+    "rules": "规则",
+    "source": "来源"
+  },
+  "bet": {
+    "placeBet": "下注",
+    "amount": "金额",
+    "outcome": "结果",
+    "expectedReturn": "预期收益",
+    "currentOdds": "当前赔率",
+    "minBet": "最小下注",
+    "maxBet": "最大下注",
+    "insufficientBalance": "余额不足",
+    "betPlaced": "下注成功",
+    "betFailed": "下注失败"
+  },
+  "topics": {
+    "crypto": "加密货币",
+    "sports": "体育",
+    "politics": "政治",
+    "economy": "经济",
+    "gaming": "游戏",
+    "culture": "文化",
+    "tech": "科技"
+  },
+  "leaderboard": {
+    "title": "排行榜",
+    "rank": "排名",
+    "user": "用户",
+    "points": "积分",
+    "accuracy": "准确率",
+    "totalBets": "总投注"
+  },
+  "earn": {
+    "title": "赚取奖励",
+    "dailyRewards": "每日奖励",
+    "referralBonus": "推荐奖励",
+    "tournamentPrizes": "锦标赛奖金",
+    "stakingRewards": "质押奖励"
+  },
+  "news": {
+    "title": "最新资讯",
+    "description": "获取来自主要来源的最新资讯",
+    "readMore": "阅读更多",
+    "source": "来源"
+  }
+}

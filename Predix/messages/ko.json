@@ -1,0 +1,101 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류",
+    "success": "성공",
+    "cancel": "취소",
+    "confirm": "확인",
+    "close": "닫기",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "편집",
+    "view": "보기",
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬",
+    "all": "전체",
+    "none": "없음",
+    "yes": "예",
+    "no": "아니오"
+  },
+  "navigation": {
+    "home": "홈",
+    "markets": "마켓",
+    "leaderboard": "리더보드",
+    "earn": "수익",
+    "news": "뉴스",
+    "integrations": "통합",
+    "topics": "주제",
+    "help": "도움말 및 피드백",
+    "partner": "파트너십",
+    "terms": "이용약관",
+    "privacy": "개인정보처리방침",
+    "copyright": "© 2025 모든 권리 보유"
+  },
+  "auth": {
+    "signIn": "로그인",
+    "signOut": "로그아웃",
+    "connectWallet": "지갑 연결",
+    "disconnect": "연결 해제",
+    "balance": "잔액",
+    "address": "주소"
+  },
+  "search": {
+    "placeholder": "예측 마켓 검색...",
+    "noResults": "결과를 찾을 수 없습니다",
+    "recentSearches": "최근 검색"
+  },
+  "market": {
+    "predict": "예측",
+    "volume": "거래량",
+    "ends": "종료 시간",
+    "ended": "종료됨",
+    "resolved": "해결됨",
+    "trending": "🔥 인기 예측",
+    "categories": "📊 카테고리 마켓",
+    "probability": "확률",
+    "totalStaked": "총 베팅",
+    "participants": "참가자",
+    "timeLeft": "남은 시간",
+    "creator": "생성자",
+    "description": "설명",
+    "rules": "규칙",
+    "source": "출처"
+  },
+  "bet": {
+    "placeBet": "베팅하기",
+    "amount": "금액",
+    "outcome": "결과",
+    "expectedReturn": "예상 수익",
+    "currentOdds": "현재 배당률",
+    "minBet": "최소 베팅",
+    "maxBet": "최대 베팅",
+    "insufficientBalance": "잔액 부족",
+    "betPlaced": "베팅 성공",
+    "betFailed": "베팅 실패"
+  },
+  "topics": {
+    "crypto": "암호화폐",
+    "sports": "스포츠",
+    "politics": "정치",
+    "economy": "경제",
+    "gaming": "게이밍",
+    "culture": "문화",
+    "tech": "기술과학"
+  },
+  "leaderboard": {
+    "title": "리더보드",
+    "rank": "순위",
+    "user": "사용자",
+    "points": "포인트",
+    "accuracy": "정확도",
+    "totalBets": "총 베팅"
+  },
+  "earn": {
+    "title": "보상 획득",
+    "dailyRewards": "일일 보상",
+    "referralBonus": "추천 보너스",
+    "tournamentPrizes": "토너먼트 상금",
+    "stakingRewards": "스테이킹 보상"
+  }
+}
