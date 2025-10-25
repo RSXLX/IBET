@@ -11,6 +11,8 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    env:
+      SOLANA_WALLET: ${{ secrets.SOLANA_WALLET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,7 +21,7 @@ jobs:
           fetch-depth: 0
 
       - name: Prepare Solana wallet
-        if: ${{ secrets.SOLANA_WALLET != '' }}
+        if: ${{ env.SOLANA_WALLET != '' }}
         shell: bash
         run: |
           mkdir -p ~/.config/solana
@@ -51,7 +53,7 @@ jobs:
         run: docker run --rm solanafoundation/anchor:v0.32.1 anchor --version
 
       - name: Keys sync to update Program IDs
-        if: ${{ steps.locate.outputs.anchor_dir != '' && secrets.SOLANA_WALLET != '' }}
+        if: ${{ steps.locate.outputs.anchor_dir != '' && env.SOLANA_WALLET != '' }}
         run: |
           docker run --rm \
             -v ${{ steps.locate.outputs.anchor_dir }}:/work \
@@ -69,7 +71,7 @@ jobs:
             solanafoundation/anchor:v0.32.1 anchor build -vv
 
       - name: Deploy to devnet
-        if: ${{ steps.locate.outputs.anchor_dir != '' && secrets.SOLANA_WALLET != '' }}
+        if: ${{ steps.locate.outputs.anchor_dir != '' && env.SOLANA_WALLET != '' }}
         run: |
           docker run --rm \
             -v ${{ steps.locate.outputs.anchor_dir }}:/work \
